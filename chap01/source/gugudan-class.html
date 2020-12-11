@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>    
+    <script type="text/babel">
+        class GuGuDan extends React.Component {
+            //constructor(props) {
+            //    super(props);
+            //    this.state = {
+            //        fisrt: Math.ceil(Math.random() * 9),
+            //        second: Math.ceil(Math.random() * 9),
+            //        value: '',
+            //       result: ''
+            //    };
+            //}
+
+            //constructor는 생량 가능
+            state = {
+                fisrt: Math.ceil(Math.random() * 9),
+                second: Math.ceil(Math.random() * 9),
+                value: '',
+                result: ''
+            };
+
+            onSubmit = (e) => {
+                e.preventDefault();
+
+                if(parseInt(this.state.value) === this.state.fisrt * this.state.second) {
+                    //this.setState에 함수를 사용하여 이전 state 값을 사용할 수 있음
+                    this.setState((prevState) => {
+                        return {
+                            result: '정답 : ' + prevState.value,
+                            first: Math.ceil(Math.random() * 9),
+                            second: Math.ceil(Math.random() * 9),
+                            value: ''
+                        }
+                    });
+                    this.input.focus();
+                } else {
+                    this.setState({
+                        result: '땡',
+                        value: ''
+                    });
+                    this.input.focus();
+                }
+            };
+
+            onChange = (e) => this.setState({ value: e.target.value });
+
+            input;
+
+            onRefInput = (c) => this.input = c;
+
+            //this.State()가 실행될때 마다 render() 함수도 같이 실행되기 때문에 빈번하게 this.State()를 수행할 시 느려질 수 있음
+            render() {
+                return (
+                    //1. React.Fragment -> div 없이 사용이 가능하게 함(element가 여려개인 경우 div로 감싸야 하지만 element가 하나인 경우 div로 감싸지 않아도 됨)
+                    //2. React 관련 값이나 함수 표현에는 {}가 필요
+                    //3. JSX 내부에서는 자바스크립트 관련 코드를 작성하기 않는것이 좋고 렌더링 될때마다 함수를 
+                    //표현하는 것은 비효율적이므로 관련 로직은 메서드로 빼서 관리하는 것이 좋음
+                    //4. JSX 내부에서는 input과 같이 종료 태그를 사용하지 않는 태그들도 종료태그를 반드시 표현해야 함
+                    //5. ref를 통해서 React의 dom에 접근한다. 직접 dom에 접근하는 것은 사용하지 않아야 함
+                    <React.Fragment>
+                        <div>{this.state.fisrt} 곱하기 {this.state.second}는?</div> 
+                        <form onSubmit={this.onSubmit}> 
+                            <input ref={this.onRefInput} type="number" value={this.state.value} onChange={this.onChange}/>
+                            <button>입력!</button>
+                        </form>
+                        <div>{this.state.result}</div>
+                    </React.Fragment>
+                );
+            }
+        }
+    </script>
+    <script type="text/babel">
+        ReactDOM.render(<GuGuDan />, document.querySelector('#root'));
+    </script>
+</body>
+</html>
