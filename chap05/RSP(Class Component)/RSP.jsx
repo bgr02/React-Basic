@@ -18,7 +18,7 @@ const scores = {
 }
 
 const computerChoice = (imgCoord) => {
-    return Object.entries(rspCoords).find(function(v) {
+    return Object.entries(rspCoords).find(function (v) {
         return v[1] === imgCoord;
     })[0];
 }
@@ -49,20 +49,20 @@ class RSP extends Component {
     }
 
     changeHand = () => {
-        const {imgCoord} = this.state;
-        if(imgCoord === rspCoords.바위) {
-             this.setState({
+        const { imgCoord } = this.state;
+        if (imgCoord === rspCoords.바위) {
+            this.setState({
                 imgCoord: rspCoords.가위
-             });
-        } else if(imgCoord === rspCoords.가위) {
+            });
+        } else if (imgCoord === rspCoords.가위) {
             this.setState({
                 imgCoord: rspCoords.보
-             });
-        } else if(imgCoord === rspCoords.보) {
+            });
+        } else if (imgCoord === rspCoords.보) {
             this.setState({
                 imgCoord: rspCoords.바위
-             });
-        } 
+            });
+        }
     };
 
     onClickBtn = (choice) => (e) => {
@@ -71,11 +71,11 @@ class RSP extends Component {
         const myScore = scores[choice];
         const cpuScore = scores[computerChoice(this.state.imgCoord)];
         const diff = myScore - cpuScore;
-        if(diff === 0) {
+        if (diff === 0) {
             this.setState({
                 result: '비겼습니다.!'
             });
-        } else if([-1, 2].includes(diff)) {
+        } else if ([-1, 2].includes(diff)) {
             this.setState((prevState) => {
                 return {
                     result: '이겼습니다.!',
@@ -91,7 +91,7 @@ class RSP extends Component {
             });
         }
         setTimeout(() => {
-            this.interval = setInterval(this.changeHand, 100);    
+            this.interval = setInterval(this.changeHand, 100);
         }, 2000);
     };
 
@@ -99,7 +99,7 @@ class RSP extends Component {
         const { result, score, imgCoord } = this.state;
         return (
             <>
-                <div id="computer" style={{ background: `url(https://en.pimg.jp/023/182/267/1/23182267.jpg) ${imgCoord} 0`}} />
+                <div id="computer" style={{ background: `url(https://en.pimg.jp/023/182/267/1/23182267.jpg) ${imgCoord} 0` }} />
                 <div>
                     <button id="scissor" className="btn" onClick={this.onClickBtn('가위')}>가위</button>
                     <button id="rock" className="btn" onClick={this.onClickBtn('바위')}>바위</button>

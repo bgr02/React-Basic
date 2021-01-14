@@ -4,6 +4,8 @@ import NumberBaseball from '../../chap03/NumberBaseball(Class Component)/numberb
 import RSP from '../../chap05/RSP(Class Component)/RSP';
 import Lotto from '../../chap06/Lotto(Class Component)/Lotto';
 
+//NumberBaseball, RSP, Lotto를 함수형 컴포넌트로 가져다 사용하지 않는 이유는 다른 폴더의 컴포넌트를 사용하였기 때문임.
+//정확히는 다른 폴더의 함수형 컴포넌트를 가져다 사용하면 다른 폴더에 있는 node_modules의 패키지들과 충돌이 일어남.
 class GameMatcher extends Component {
     render() {
         let urlSearchParms = new URLSearchParams(this.props.location.search.slice(1));
