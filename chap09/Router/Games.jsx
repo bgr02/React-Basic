@@ -3,7 +3,7 @@ import { BrowserRouter, HashRouter, Route, Link, Switch } from 'react-router-dom
 import NumberBaseball from '../../chap03/NumberBaseball(Class Component)/numberbaseball';
 import RSP from '../../chap05/RSP(Class Component)/RSP';
 import Lotto from '../../chap06/Lotto(Class Component)/Lotto';
-import GameMatcher from './GameMatcher';
+import GameMatcher from './GameMatcher(Hooks)';
 
 const Games = () => {
     return (
@@ -39,12 +39,17 @@ const Games = () => {
                     exact: 주소가 완전히 일치하는 경우의 페이지만 렌더링한다.
                 */}
                     <Switch>
-                        <Route path="/game/:name" component={GameMatcher} />
+                        {/* Switch 태그안에 Link 태그로 들어오는 경로와 연결될 Route 태그를 모두 서술해 놓아야 Link 태그를 눌렀을때 
+                            이동할 페이지가 생성이 됨.
+                        */}
+                        {/* Route 태그에서 지정한 컴포넌트이기 때문에 location, match, history는 prop으로 넘겨주지 않아도 알아서 가지고 있음 */}
+                        <Route path="/game/:name" component={ GameMatcher } />
                         <Route path="/game/number-baseball" render={(props) => <GameMatcher {...props} />} />
                         {/* props 넘기는 방법 */}
-                        {/* component 사용 */}
+                        {/* component 사용, 랜더링할때마다 새로운 컴포넌트를 생성(언마운트 -> 마운트가 랜더링때마다 발생) */}
                         {/*<Route path="/game/:name" component={() => <GameMatcher props={}/>} />*/}
-                        {/* render를 사용, render를 사용시 자식 컴포넌트에 props를 무조건 넘겨주어야 에러가 안남. */}
+                        {/* render를 사용, render를 사용시 자식 컴포넌트에 props를 무조건 넘겨주어야 에러가 안남, Best Practice이며 
+                        랜더링이되어도 무분별한 컴포넌트 생성이 발생하지 않음. */}
                         {/*<Route path="/game/:name" render={(props) => <GameMatcher {...props}/>} />*/}
                     </Switch>
             </div>

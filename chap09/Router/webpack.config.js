@@ -35,14 +35,15 @@ module.exports = {
                         debug: true //개발시 debug 체크
                     }],
                     '@babel/preset-react'],
-                plugins: ['@babel/plugin-proposal-class-properties', 'react-refresh/babel']
+                //build시에는 'react-refresh/babel' 제거해야 함.
+                plugins: ['@babel/plugin-proposal-class-properties', 'react-refresh/babel'] //@babel/plugin-proposal-class-properties: Class Component 사용시 추가해야함.
             }
         }]
     },
     plugins: [
         //모든 loader의 option에 debug: true를 추가
         new webpack.LoaderOptionsPlugin({ debug: true }),
-        new RefreshWebpackPlugin()
+        new RefreshWebpackPlugin() //build시에는 new RefreshWebpackPlugin() 제거해야 함.
     ],
     //출력
     output: {

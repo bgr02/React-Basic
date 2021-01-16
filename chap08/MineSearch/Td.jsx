@@ -49,6 +49,11 @@ const getTdText = (code) => {
     } 
 };
 
+//React.memo: React.memo는 동일한 props로 동일한 rendering 결과를 내는경우 해당 결과를 캐싱하여 재사용하는데
+//만약 props의 값이 변하는 경우 rendering 결과가 달라지므로 rendering 과정이 일어난다. 여기서 propps는 예를들어
+//memo(({ rowIndex, cellIndex }) => {}에서 rowIndex, cellIndex를 말하고 이러한 값이 변하지 않는경우 캐싱한
+//rendering 결과를 반환한다. React.memo는 props 변화에 대한 캐싱만을 하기 때문에 컴포넌트 내부의 useState 또는 useContext의
+//값이 변하는 경우 React.memo가 적용되어 있는 컴포넌트여도 그때마다 rendering이 일어날 것임.
 const Td = memo(({ rowIndex, cellIndex }) => {
     //useContext를 쓰는 컴포넌트는 제공되는 state가 변할때마다 렌더링이 일어남.
     const { tableData, dispatch, halted } = useContext(TableContext);
@@ -102,11 +107,11 @@ const Td = memo(({ rowIndex, cellIndex }) => {
     console.log('td rendered');
 
     //useMemo를 통해 값을 캐싱하여 렌더링 될때마다 함수 자체가 실행되어도 같은 값일경우 return 함수부분은 재실행되지 않도록 함.
-    return useMemo(() => (
+    return useMemo(() => {
         <td style={getTdStyle(tableData[rowIndex][cellIndex])} onClick={onClickTd} onContextMenu={onRightClickTd}>
             {getTdText(tableData[rowIndex][cellIndex])}
         </td>
-    ), [tableData[rowIndex][cellIndex]]);
+    }, [tableData[rowIndex][cellIndex]]);
 
     //컴포넌트로 분리한후 memo를 적용하여 호출
     //return  <RealTd onClickTd={onClickTd} onRightClickTd={onRightClickTd} data={tableData[rowIndex][cellIndex]}/>

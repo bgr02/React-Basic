@@ -12,12 +12,11 @@ const Form = memo(() => {
         setRow(e.target.value);
     }, []);
 
-    
+
     const onChangeCell = useCallback((e) => {
         setCell(e.target.value);
     }, []);
 
-    
     const onChangeMine = useCallback((e) => {
         setMine(e.target.value);
     }, []);
