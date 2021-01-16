@@ -1,5 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
+//@pmmmwh/react-refresh-webpack-plugin, react-refresh, webpack-dev-server 3가지 모듈을 사용하여 
+//Hot Reloading 기능을 사용할 수 있음. Hot Reloading이란 기존의 데이터를 유지하면서 화면을 새로고침
+//해주는 기능임.
 const RefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 module.exports = {

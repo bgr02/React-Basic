@@ -13,7 +13,7 @@ export const CODE = {
     OPENED: 0 //0이상이면 다 OPENED
 }
 
-//createContext에서 전달할 값을 초기회 및 export
+//createContext에서 전달할 값을 초기화 및 export
 export const TableContext = createContext({
     tableData: [],
     halted: true,
